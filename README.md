@@ -1,8 +1,13 @@
-# IFrame
-#### Android IFrame
+# MVP
+#### Android MVP
 
-[![](https://jitpack.io/v/killerdiary/IFrame.svg)](https://jitpack.io/#killerdiary/IFrame)
+[![](https://jitpack.io/v/killerdiary/MVP.svg)](https://jitpack.io/#killerdiary/MVP)
 
+#### 说明
+
+> 单纯使用 okhttp +mvp + Activity
+
+> 复杂模式 后期编写，或者参考编写
 
 #### 使用方式
 
@@ -20,9 +25,8 @@ allprojects {
 ##### Step 2. Add the dependency
 ~~~
 dependencies {
-    implementation 'com.github.killerdiary:IFrame:XXX'
+        implementation 'com.github.killerdiary:MVP:Tag'
 }
-
 ~~~
 
 ##### 如果有引用包冲突和不必要的包，请排除
