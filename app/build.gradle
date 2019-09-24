@@ -40,5 +40,14 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation deps.frame.iframe
+    implementation(deps.okhttp.okhttp3) {
+//        exclude group: "org.jetbrains.kotlin"
+    }
+    implementation(deps.okhttp.okhttp3_logging) {
+        exclude module: 'okhttp'
+    }
+    implementation deps.json.gson
+    implementation "androidx.annotation:annotation:1.1.0"
     implementation(project(path: ':library'))
 }

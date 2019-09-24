@@ -1,11 +1,11 @@
 package com.hy.frame.net;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.google.gson.Gson;
 import com.hy.frame.net.file.Binary;
 import com.hy.frame.util.MyLog;
-
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -103,7 +103,7 @@ public class HttpClient implements IHttpClient {
         if (loggable) {
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
                 @Override
-                public void log(@NotNull String message) {
+                public void log(@NonNull String message) {
                     MyLog.d(TAG, message);
                 }
             });
@@ -266,7 +266,7 @@ public class HttpClient implements IHttpClient {
         addQueue(call);
         call.enqueue(new Callback() {
             @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 removeQueue(call);
                 String msg = e.getMessage();
                 if (mLoggable)
@@ -277,7 +277,7 @@ public class HttpClient implements IHttpClient {
             }
 
             @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) {
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
                 removeQueue(call);
 //                if (mLoggable)
 //                    MyLog.d(TAG, "onResponse url=" + call.request().url());

@@ -13,10 +13,10 @@ import com.hy.frame.util.JsonUtil;
 import com.hy.frame.util.MyLog;
 
 
-//import org.jetbrains.annotations.NotNull;
+//import androidx.annotation.NonNull;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.io.IOException;
 
@@ -80,7 +80,7 @@ public class NormalObserver implements IObserver {
      * @param data        数据KEY
      * @param codeSuccess 成功码
      */
-    public NormalObserver template(@NotNull String code, @NotNull String msg, @NotNull String data, int codeSuccess) {
+    public NormalObserver template(@NonNull String code, @NonNull String msg, @NonNull String data, int codeSuccess) {
         this.isTemplate = true;
         this.tCode = code;
         this.tCodeSucces = codeSuccess;
@@ -276,7 +276,7 @@ public class NormalObserver implements IObserver {
         return this.mHandler;
     }
 
-    private void run(@NotNull Runnable runnable) {
+    private void run(@NonNull Runnable runnable) {
         //切换主线程 不用判断
         getHandler().post(runnable);
     }

@@ -4,8 +4,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.hy.demo.app.BaseActivity;
-import com.hy.demo.iframe.BuildConfig;
-import com.hy.demo.iframe.R;
+import com.hy.demo.mvp.BuildConfig;
+import com.hy.demo.mvp.R;
 import com.hy.frame.util.TimerUtil;
 
 /**

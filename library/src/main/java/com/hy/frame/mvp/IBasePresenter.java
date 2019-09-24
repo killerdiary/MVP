@@ -2,8 +2,8 @@ package com.hy.frame.mvp;
 
 import android.content.Context;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * title MVP中Presenter需要实现的Interface
@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
  * desc 无
  */
 public interface IBasePresenter {
-    @NotNull
+    @NonNull
     Context getContext();
 
     @Nullable

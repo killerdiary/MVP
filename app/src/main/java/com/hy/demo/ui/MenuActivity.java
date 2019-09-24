@@ -6,7 +6,7 @@ import android.widget.GridView;
 
 import com.hy.demo.adapter.MenuAdapter;
 import com.hy.demo.app.BaseActivity;
-import com.hy.demo.iframe.R;
+import com.hy.demo.mvp.R;
 import com.hy.frame.adapter.IAdapterListener;
 import com.hy.frame.bean.MenuInfo;
 import com.hy.frame.common.IBaseTemplateUI;

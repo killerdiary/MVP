@@ -22,6 +22,11 @@ public class TestAdapter extends BaseAdapter<String> {
     }
 
     @Override
+    public boolean isBindDataId() {
+        return false;
+    }
+
+    @Override
     public int getItemLayoutId() {
         return android.R.layout.simple_list_item_1;
     }

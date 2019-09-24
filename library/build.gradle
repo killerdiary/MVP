@@ -15,8 +15,8 @@ android {
 //        applicationId APP_ID
 //        resValue "string", "appName", APP_NAME
 
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.1"
     }
     buildTypes {
         debug {
@@ -54,14 +54,15 @@ dependencies {
 //    }
 // okhttp 如果没有使用androidx 不要使用版本4.x 3.12以后的版本支持 android5.0+
 // okhttp 4.x 使用 kotlin
-    api(deps.okhttp.okhttp3) {
+    implementation(deps.okhttp.okhttp3) {
 //        exclude group: "org.jetbrains.kotlin"
     }
-    api(deps.okhttp.okhttp3_logging) {
+    implementation(deps.okhttp.okhttp3_logging) {
         exclude module: 'okhttp'
     }
-    api deps.json.gson
-    api 'org.jetbrains:annotations:15.0'
+    implementation deps.json.gson
+    implementation "androidx.annotation:annotation:1.1.0"
+//    api 'org.jetbrains:annotations:15.0'
 //    implementation 'org.jetbrains:annotations:15.0'
 //    implementation 'com.android.support:support-annotations:28.0.0'
 }

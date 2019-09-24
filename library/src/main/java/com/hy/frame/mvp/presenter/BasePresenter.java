@@ -6,8 +6,8 @@ import com.hy.frame.mvp.IBaseModel;
 import com.hy.frame.mvp.IBasePresenter;
 import com.hy.frame.mvp.IBaseView;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * title BasePresenter
@@ -20,23 +20,23 @@ public abstract class BasePresenter<V extends IBaseView, M extends IBaseModel> i
     private V mView;
     private M mModel;
 
-    public BasePresenter(@NotNull Context mContext, @NotNull V mView, @NotNull M mModel) {
+    public BasePresenter(@NonNull Context mContext, @NonNull V mView, @NonNull M mModel) {
         this.mContext = mContext;
         this.mView = mView;
         this.mModel = mModel;
     }
 
-    @NotNull
+    @NonNull
     protected V getView() {
         return this.mView;
     }
 
-    @NotNull
+    @NonNull
     protected M getModel() {
         return this.mModel;
     }
 
-    @NotNull
+    @NonNull
     @Override
     public Context getContext() {
         return this.mContext;

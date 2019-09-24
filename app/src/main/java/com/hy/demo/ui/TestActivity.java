@@ -4,7 +4,7 @@ import android.os.Message;
 import android.view.View;
 
 import com.hy.demo.app.BaseActivity;
-import com.hy.demo.iframe.R;
+import com.hy.demo.mvp.R;
 import com.hy.frame.util.MyHandler;
 
 /**
