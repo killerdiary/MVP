@@ -1,7 +1,7 @@
 package com.hy.frame.net;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
 import com.hy.frame.net.file.Binary;
@@ -352,7 +352,7 @@ public class HttpClient implements IHttpClient {
             params.setReadTimeout(60 * 30);//30分钟
         }
         OkHttpClient client = buildOkHttpClient(params, this.mLoggable);
-        Request request = buildRequest(RMethod.POST, url, params, callback);
+        Request request = buildRequest(RMethod.GET, url, params, callback);
         request(client, request);
     }
 

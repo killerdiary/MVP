@@ -15,8 +15,8 @@ android {
 //        applicationId APP_ID
 //        resValue "string", "appName", APP_NAME
 
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 3
+        versionName "1.0.2"
     }
     buildTypes {
         debug {
@@ -61,7 +61,7 @@ dependencies {
         exclude module: 'okhttp'
     }
     implementation deps.json.gson
-    implementation "androidx.annotation:annotation:1.1.0"
+    implementation "com.android.support:support-annotations:28.0.0"
 //    api 'org.jetbrains:annotations:15.0'
 //    implementation 'org.jetbrains:annotations:15.0'
 //    implementation 'com.android.support:support-annotations:28.0.0'

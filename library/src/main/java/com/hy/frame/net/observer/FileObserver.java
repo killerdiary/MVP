@@ -2,6 +2,8 @@ package com.hy.frame.net.observer;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.hy.frame.net.IObserver;
 import com.hy.frame.util.FormatUtil;
@@ -140,6 +142,7 @@ public class FileObserver implements IObserver {
             }
             outputStream.flush();
             dFile.setState(STATUS_SUCCESS);//下载完成
+            //noinspection ResultOfMethodCallIgnored
             tempFile.renameTo(file);//重命名缓存文件
             MyLog.d(TAG, String.format(Locale.CHINA, "onSuccess path=%s %s/%s", mSavePath, dFile.downloadSize, dFile.fileSize));
             onSuccess(dFile, "下载完成");
@@ -217,10 +220,10 @@ public class FileObserver implements IObserver {
 //        }
     }
 
-    interface ICallback {
-        void onSuccess(FileObserver.DownFile obj, String msg);
+    public interface ICallback {
+        void onSuccess(@NonNull FileObserver.DownFile obj, @Nullable String msg);
 
-        void onError(int errorCode, String msg);
+        void onError(int errorCode,@Nullable String msg);
     }
 
     /**

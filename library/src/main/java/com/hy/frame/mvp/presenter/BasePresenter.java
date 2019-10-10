@@ -6,8 +6,8 @@ import com.hy.frame.mvp.IBaseModel;
 import com.hy.frame.mvp.IBasePresenter;
 import com.hy.frame.mvp.IBaseView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 /**
  * title BasePresenter

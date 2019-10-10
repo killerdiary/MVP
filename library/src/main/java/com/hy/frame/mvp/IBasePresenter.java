@@ -2,8 +2,8 @@ package com.hy.frame.mvp;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 /**
  * title MVP中Presenter需要实现的Interface

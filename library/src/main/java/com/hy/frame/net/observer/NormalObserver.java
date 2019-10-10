@@ -2,6 +2,8 @@ package com.hy.frame.net.observer;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -11,12 +13,6 @@ import com.hy.frame.net.IObserver;
 import com.hy.frame.util.FormatUtil;
 import com.hy.frame.util.JsonUtil;
 import com.hy.frame.util.MyLog;
-
-
-//import androidx.annotation.NonNull;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import java.io.IOException;
 
@@ -164,9 +160,11 @@ public class NormalObserver implements IObserver {
                         any = Long.valueOf(data);
                     } else {
                         JsonElement element = new JsonParser().parse(data);
-                        if (element.isJsonObject()) {
-                            any = new Gson().fromJson(element, cls);
-                        }
+//                        if (element.isJsonObject()) {
+//                            any = new Gson().fromJson(element, cls);
+//                        }
+                        //强制转换
+                        any = new Gson().fromJson(element, cls);
                     }
                 }
             } else {
@@ -206,6 +204,9 @@ public class NormalObserver implements IObserver {
                                     } else if (cls == Long.class || cls == long.class) {
                                         any = element.getAsLong();
                                     }
+                                }else{
+                                    //强制转换
+                                    any = new Gson().fromJson(element, cls);
                                 }
                             }
                         }
