@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,8 +42,14 @@ public class JsonUtil {
         if (data == null || !data.isJsonArray() || cls == null) return null;
         try {
             T[] beans = new Gson().fromJson(data, TypeToken.getArray(cls).getType());
-            return Arrays.asList(beans);
-
+            if (beans != null) {
+                List<T> rows = new ArrayList<>();
+                for (T item : beans) {
+                    rows.add(item);
+                }
+                return rows;
+            }
+            //return Arrays.asList(beans);
         } catch (Exception e) {
             MyLog.e("JSON", e.toString());
         }
