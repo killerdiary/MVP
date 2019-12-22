@@ -267,10 +267,11 @@ public class HttpClient implements IHttpClient {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                removeQueue(call);
                 String msg = e.getMessage();
                 if (mLoggable)
                     MyLog.e(TAG, "onFailure url=" + call.request().url() + ",msg=" + msg);
+                removeQueue(call);
+                if (isDestroy) return;
                 IObserver callback = (IObserver) call.request().tag();
                 if (callback == null) return;
                 callback.onError(-1, msg);
@@ -278,9 +279,9 @@ public class HttpClient implements IHttpClient {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
+                if (mLoggable)
+                    MyLog.d(TAG, "onResponse url=" + call.request().url());
                 removeQueue(call);
-//                if (mLoggable)
-//                    MyLog.d(TAG, "onResponse url=" + call.request().url());
                 if (isDestroy) return;
                 IObserver callback = (IObserver) call.request().tag();
                 if (callback == null) return;
@@ -297,6 +298,8 @@ public class HttpClient implements IHttpClient {
     @Override
     public void destroy() {
         this.isDestroy = true;
+        if (mLoggable)
+            MyLog.d(TAG, "destroy");
         if (this.queues != null) {
             for (Call item : queues) {
                 item.cancel();
