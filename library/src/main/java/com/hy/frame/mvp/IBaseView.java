@@ -1,5 +1,7 @@
 package com.hy.frame.mvp;
 
+import android.support.annotation.Nullable;
+
 import com.hy.frame.common.IBaseTemplateUI;
 
 /**
@@ -12,5 +14,6 @@ public interface IBaseView {
     /**
      * 获取模板[com.hy.frame.common.IBaseTemplateUI]
      */
+    @Nullable
     IBaseTemplateUI getTemplateUI();
 }

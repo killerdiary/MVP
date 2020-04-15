@@ -1,13 +1,12 @@
 package com.hy.frame.mvp.presenter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.hy.frame.mvp.IBaseModel;
 import com.hy.frame.mvp.IBasePresenter;
 import com.hy.frame.mvp.IBaseView;
-
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 /**
  * title BasePresenter
@@ -26,12 +25,12 @@ public abstract class BasePresenter<V extends IBaseView, M extends IBaseModel> i
         this.mModel = mModel;
     }
 
-    @NonNull
+    @Nullable
     protected V getView() {
         return this.mView;
     }
 
-    @NonNull
+    @Nullable
     protected M getModel() {
         return this.mModel;
     }
@@ -52,7 +51,8 @@ public abstract class BasePresenter<V extends IBaseView, M extends IBaseModel> i
     public void destroy() {
         this.mContext = null;
         this.mView = null;
-        this.mModel.destroy();
+        if (this.mModel != null)
+            this.mModel.destroy();
         this.mModel = null;
     }
 }

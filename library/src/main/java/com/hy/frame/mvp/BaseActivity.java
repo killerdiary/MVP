@@ -1,5 +1,7 @@
 package com.hy.frame.mvp;
 
+import android.support.annotation.Nullable;
+
 import com.hy.frame.common.IBaseTemplateUI;
 import com.hy.frame.mvp.contract.IBaseContract;
 import com.hy.frame.mvp.presenter.BasePresenter;
@@ -14,11 +16,13 @@ public abstract class BaseActivity<P extends IBasePresenter> extends com.hy.fram
     private P mPresenter = null;//如果当前页面逻辑简单, Presenter 可以为 null
 
     @Override
+    @Nullable
     public IBaseTemplateUI getTemplateUI() {
         return this;
     }
 
     @Override
+    @Nullable
     public P getPresenter() {
         if (isIDestroy()) return null;
         if (this.mPresenter == null) this.mPresenter = buildPresenter();
@@ -26,6 +30,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends com.hy.fram
     }
 
     @Override
+    @Nullable
     public P buildPresenter() {
         return null;
     }
