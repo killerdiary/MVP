@@ -5,8 +5,10 @@ import android.widget.ListView;
 
 import com.hy.demo.adapter.ListAdapter;
 import com.hy.demo.app.BaseActivity;
-import com.hy.demo.mvp.R;
+import com.hy.demo.iframe.R;
 import com.hy.frame.adapter.IAdapterListener;
+import com.hy.frame.base.BaseTemplateUI;
+import com.hy.frame.common.IAppUI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,21 +19,15 @@ import java.util.List;
  * time 19-7-11 下午3:27
  * desc 无
  */
-public class ListActivity extends BaseActivity implements IAdapterListener<String> {
-    private ListView cList;
+public class ListActivity extends BaseActivity<ListActivity.TemplateUI> {
+
+
+    @Override
+    public TemplateUI buildTemplateUI() {
+        return new TemplateUI(this);
+    }
+
     private List<String> datas;
-    private ListAdapter adapter;
-
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.v_list_list;
-    }
-
-    @Override
-    public void initView() {
-        cList = findViewById(R.id.list_list_cList);
-    }
 
     @Override
     public void initData() {
@@ -49,11 +45,7 @@ public class ListActivity extends BaseActivity implements IAdapterListener<Strin
     }
 
     public void updateUI() {
-        if (adapter == null) {
-            adapter = new ListAdapter(getCurContext(), datas, this);
-            cList.setAdapter(adapter);
-        } else
-            adapter.refresh(datas);
+        getTemplateUI().updateUI(datas);
     }
 
     @Override
@@ -61,10 +53,38 @@ public class ListActivity extends BaseActivity implements IAdapterListener<Strin
 
     }
 
-    @Override
-    public void onViewClick(View v, String item, int position) {
-        getTemplateController().showToast(item);
+    static class TemplateUI extends BaseTemplateUI implements IAdapterListener<String> {
+        private ListView cList;
+        private ListAdapter adapter;
 
+        public TemplateUI(IAppUI iUI) {
+            super(iUI);
+        }
+
+        /**
+         * LayoutId 默认值为0
+         */
+        @Override
+        public int getLayoutId() {
+            return R.layout.v_list_list;
+        }
+
+        public void initView() {
+            cList = findViewById(R.id.list_list_cList);
+        }
+
+        public void updateUI(List<String> datas) {
+            if (adapter == null) {
+                adapter = new ListAdapter(getCurContext(), datas, this);
+                cList.setAdapter(adapter);
+            } else
+                adapter.refresh(datas);
+        }
+
+        @Override
+        public void onViewClick(View v, String item, int position) {
+            showToast(item);
+
+        }
     }
-
 }

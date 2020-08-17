@@ -3,7 +3,8 @@ package com.hy.demo.adapter;
 import android.content.Context;
 import android.widget.TextView;
 
-import com.hy.demo.mvp.R;
+
+import com.hy.demo.iframe.R;
 import com.hy.frame.adapter.BaseAdapter;
 import com.hy.frame.adapter.BaseHolder;
 import com.hy.frame.adapter.IAdapterListener;
@@ -21,10 +22,6 @@ public class MenuAdapter extends BaseAdapter<MenuInfo> {
 
     public MenuAdapter(Context cxt, List<MenuInfo> datas, IAdapterListener<MenuInfo> mListener) {
         super(cxt, datas, mListener);
-    }
-    @Override
-    public boolean isBindDataId() {
-        return false;
     }
 
     @Override

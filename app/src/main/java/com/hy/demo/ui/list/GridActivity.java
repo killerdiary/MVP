@@ -2,12 +2,13 @@ package com.hy.demo.ui.list;
 
 import android.view.View;
 import android.widget.GridView;
-import android.widget.ListView;
 
 import com.hy.demo.adapter.ListAdapter;
 import com.hy.demo.app.BaseActivity;
-import com.hy.demo.mvp.R;
+import com.hy.demo.iframe.R;
 import com.hy.frame.adapter.IAdapterListener;
+import com.hy.frame.base.BaseTemplateUI;
+import com.hy.frame.common.IAppUI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,20 +19,13 @@ import java.util.List;
  * time 19-7-11 下午3:27
  * desc 无
  */
-public class GridActivity extends BaseActivity implements IAdapterListener<String> {
-    private GridView cGrid;
+public class GridActivity extends BaseActivity<GridActivity.TemplateUI> {
+
     private List<String> datas;
-    private ListAdapter adapter;
-
 
     @Override
-    public int getLayoutId() {
-        return R.layout.v_list_grid;
-    }
-
-    @Override
-    public void initView() {
-        cGrid = findViewById(R.id.list_grid_cGrid);
+    public GridActivity.TemplateUI buildTemplateUI() {
+        return new GridActivity.TemplateUI(this);
     }
 
     @Override
@@ -39,7 +33,6 @@ public class GridActivity extends BaseActivity implements IAdapterListener<Strin
         initHeader(android.R.drawable.ic_menu_revert, R.string.menu_list_list);
         requestData();
     }
-
 
     public void requestData() {
         datas = new ArrayList<>();
@@ -50,11 +43,7 @@ public class GridActivity extends BaseActivity implements IAdapterListener<Strin
     }
 
     public void updateUI() {
-        if (adapter == null) {
-            adapter = new ListAdapter(getCurContext(), datas, this);
-            cGrid.setAdapter(adapter);
-        } else
-            adapter.refresh(datas);
+        getTemplateUI().updateUI(datas);
     }
 
     @Override
@@ -62,10 +51,39 @@ public class GridActivity extends BaseActivity implements IAdapterListener<Strin
 
     }
 
-    @Override
-    public void onViewClick(View v, String item, int position) {
-        getTemplateController().showToast(item);
 
+    static class TemplateUI extends BaseTemplateUI implements IAdapterListener<String> {
+        private GridView cGrid;
+        private ListAdapter adapter;
+
+        public TemplateUI(IAppUI iUI) {
+            super(iUI);
+        }
+
+        /**
+         * LayoutId 默认值为0
+         */
+        @Override
+        public int getLayoutId() {
+            return R.layout.v_list_grid;
+        }
+
+        public void initView() {
+            cGrid = findViewById(R.id.list_grid_cGrid);
+        }
+
+        public void updateUI(List<String> datas) {
+            if (adapter == null) {
+                adapter = new ListAdapter(getCurContext(), datas, this);
+                cGrid.setAdapter(adapter);
+            } else
+                adapter.refresh(datas);
+        }
+
+        @Override
+        public void onViewClick(View v, String item, int position) {
+            showToast(item);
+
+        }
     }
-
 }

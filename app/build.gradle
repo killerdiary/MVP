@@ -4,12 +4,12 @@ android {
     def APP_ID = "com.hy.demo.mvp"
     def APP_NAME = "MVP测试"
 
-    compileSdkVersion VERSION.compileSdkVersion
-    buildToolsVersion VERSION.buildToolsVersion //需要发布maven时必须
+    compileSdkVersion VERS.compileSdkVersion
+    buildToolsVersion VERS.buildToolsVersion //需要发布maven时必须
 
     defaultConfig {
-        minSdkVersion VERSION.minSdkVersion
-        targetSdkVersion VERSION.targetSdkVersion
+        minSdkVersion VERS.minSdkVersion
+        targetSdkVersion VERS.targetSdkVersion
 
         applicationId APP_ID
         resValue "string", "appName", APP_NAME
@@ -26,8 +26,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility VERSION.javaVersion
-        targetCompatibility VERSION.javaVersion
+        sourceCompatibility VERS.javaVersion
+        targetCompatibility VERS.javaVersion
     }
 
     android.applicationVariants.all { variant ->
@@ -40,12 +40,15 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation deps.frame.iframe
-    implementation(deps.okhttp.okhttp3)
+    implementation(project(path: ':library'))
+    implementation deps.androidx.appcompat
+    // okhttp 如果没有使用androidx 不要使用版本4.x 3.12以后的版本支持 android5.0+
+// okhttp 4.x 使用 kotlin
+    implementation(deps.okhttp.okhttp3) {
+//        exclude group: "org.jetbrains.kotlin"
+    }
     implementation(deps.okhttp.okhttp3_logging) {
         exclude module: 'okhttp'
     }
     implementation deps.json.gson
-    implementation "com.android.support:support-annotations:28.0.0"
-    implementation(project(path: ':library'))
 }

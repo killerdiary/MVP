@@ -1,6 +1,6 @@
 package com.hy.demo.ui;
 
-import com.hy.demo.mvp.R;
+import com.hy.demo.iframe.R;
 
 /**
  * title 无
@@ -12,7 +12,7 @@ public class MainActivity extends MenuActivity {
 
     @Override
     protected void initHeader(int drawLeft, int titleId) {
-        getTemplateController().setTitle(titleId);
+        getTemplateUI().setTitle(titleId);
     }
 
     @Override

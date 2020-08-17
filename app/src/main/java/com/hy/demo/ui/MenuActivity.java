@@ -6,10 +6,12 @@ import android.widget.GridView;
 
 import com.hy.demo.adapter.MenuAdapter;
 import com.hy.demo.app.BaseActivity;
-import com.hy.demo.mvp.R;
+import com.hy.demo.iframe.R;
 import com.hy.frame.adapter.IAdapterListener;
+import com.hy.frame.base.BaseTemplateUI;
 import com.hy.frame.bean.MenuInfo;
-import com.hy.frame.common.IBaseTemplateUI;
+import com.hy.frame.common.IAppUI;
+import com.hy.frame.common.ITemplateUI;
 import com.hy.frame.util.FormatUtil;
 import com.hy.frame.util.ResUtil;
 
@@ -24,10 +26,8 @@ import java.util.List;
  * time 19-7-11 下午3:27
  * desc 无
  */
-public class MenuActivity extends BaseActivity implements IAdapterListener<MenuInfo> {
-    private GridView cGrd;
+public class MenuActivity extends BaseActivity<MenuActivity.TemplateUI> {
     private List<MenuInfo> datas;
-    private MenuAdapter adapter;
     protected int xmlId;
     protected int titleId;
     protected static final String ARG_XMLID = "arg_xmlid";
@@ -37,13 +37,8 @@ public class MenuActivity extends BaseActivity implements IAdapterListener<MenuI
     private static final String KEY_ARGS = "args";
 
     @Override
-    public int getLayoutId() {
-        return R.layout.v_menu;
-    }
-
-    @Override
-    public void initView() {
-        cGrd = findViewById(R.id.menu_cGrd);
+    public TemplateUI buildTemplateUI() {
+        return new TemplateUI(this);
     }
 
     @Override
@@ -67,11 +62,7 @@ public class MenuActivity extends BaseActivity implements IAdapterListener<MenuI
     }
 
     public void updateUI() {
-        if (adapter == null) {
-            adapter = new MenuAdapter(getCurContext(), datas, this);
-            cGrd.setAdapter(adapter);
-        } else
-            adapter.refresh(datas);
+        getTemplateUI().updateUI(datas);
     }
 
     @Override
@@ -79,64 +70,96 @@ public class MenuActivity extends BaseActivity implements IAdapterListener<MenuI
 
     }
 
-    @Override
-    public void onViewClick(View v, MenuInfo item, int position) {
-        //getTemplateController().showToast(position + "");
-        String clsStr = item.getValue(KEY_CLS);
-        String menuStr = item.getValue(KEY_MENU);
-        if (FormatUtil.isNoEmpty(menuStr)) {
-            int xmlId = getXmlId(menuStr);
-            MenuActivity.startAct(this, xmlId, item.getTitle());
-            return;
-        }
-        if (FormatUtil.isEmpty(clsStr)) return;
-        String args = item.getValue(KEY_ARGS);
-        Bundle bundle = new Bundle();
-        if (FormatUtil.isNoEmpty(args)) {
-            JSONArray json;
-            try {
-                json = new JSONArray(args);
-                String type;
-                String key;
-                JSONObject obj;
-                if (json.length() > 0) {
-                    for (int i = 0; i < json.length(); i++) {
-                        obj = (JSONObject) json.get(0);
-                        type = obj.getString("type");
-                        key = obj.getString("key");
-                        if (type.equalsIgnoreCase("int")) {
-                            bundle.putInt(key, obj.getInt("value"));
-                        } else if (type.equalsIgnoreCase("long")) {
-                            bundle.putLong(key, obj.getLong("value"));
-                        } else if (type.equalsIgnoreCase("boolean")) {
-                            bundle.putBoolean(key, obj.getBoolean("value"));
-                        } else if (type.equalsIgnoreCase("double")) {
-                            bundle.putDouble(key, obj.getDouble("value"));
-                        } else {
-                            bundle.putString(key, obj.getString("value"));
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        try {
-            Class<?> cls = Class.forName(clsStr);
-            startAct(cls, bundle, null);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
-    private int getXmlId(String name) {
-        return getResources().getIdentifier(name, "xml", getPackageName());
-    }
-
-    public static void startAct(IBaseTemplateUI tempUI, int xmlId, int titleId) {
+    public static void startAct(IAppUI tempUI, int xmlId, int titleId) {
         Bundle bundle = new Bundle();
         bundle.putInt(ARG_XMLID, xmlId);
         bundle.putInt(ARG_TITLEID, titleId);
         tempUI.startAct(MenuActivity.class, bundle, null);
+    }
+
+
+    static class TemplateUI extends BaseTemplateUI implements IAdapterListener<MenuInfo> {
+        private GridView cGrd;
+
+        private MenuAdapter adapter;
+
+        public TemplateUI(IAppUI iUI) {
+            super(iUI);
+        }
+
+        /**
+         * LayoutId 默认值为0
+         */
+        @Override
+        public int getLayoutId() {
+            return R.layout.v_menu;
+        }
+
+        public void initView() {
+            cGrd = findViewById(R.id.menu_cGrd);
+        }
+
+        public void updateUI(List<MenuInfo> datas) {
+            if (adapter == null) {
+                adapter = new MenuAdapter(getCurContext(), datas, this);
+                cGrd.setAdapter(adapter);
+            } else
+                adapter.refresh(datas);
+        }
+
+        private int getXmlId(String name) {
+            return getResources().getIdentifier(name, "xml", getCurContext().getPackageName());
+        }
+
+        @Override
+        public void onViewClick(View v, MenuInfo item, int position) {
+            //getTemplateUI().showToast(position + "");
+            String clsStr = item.getValue(KEY_CLS);
+            String menuStr = item.getValue(KEY_MENU);
+            if (FormatUtil.isNoEmpty(menuStr)) {
+                int xmlId = getXmlId(menuStr);
+                MenuActivity.startAct(iUI, xmlId, item.getTitle());
+                return;
+            }
+            if (FormatUtil.isEmpty(clsStr)) return;
+            String args = item.getValue(KEY_ARGS);
+            Bundle bundle = new Bundle();
+            if (FormatUtil.isNoEmpty(args)) {
+                JSONArray json;
+                try {
+                    json = new JSONArray(args);
+                    String type;
+                    String key;
+                    JSONObject obj;
+                    if (json.length() > 0) {
+                        for (int i = 0; i < json.length(); i++) {
+                            obj = (JSONObject) json.get(0);
+                            type = obj.getString("type");
+                            key = obj.getString("key");
+                            if (type.equalsIgnoreCase("int")) {
+                                bundle.putInt(key, obj.getInt("value"));
+                            } else if (type.equalsIgnoreCase("long")) {
+                                bundle.putLong(key, obj.getLong("value"));
+                            } else if (type.equalsIgnoreCase("boolean")) {
+                                bundle.putBoolean(key, obj.getBoolean("value"));
+                            } else if (type.equalsIgnoreCase("double")) {
+                                bundle.putDouble(key, obj.getDouble("value"));
+                            } else {
+                                bundle.putString(key, obj.getString("value"));
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            try {
+                Class<?> cls = Class.forName(clsStr);
+                iUI.startAct(cls, bundle, null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
