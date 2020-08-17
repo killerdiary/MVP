@@ -1,11 +1,13 @@
 package com.hy.frame.net;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.gson.Gson;
 import com.hy.frame.net.file.Binary;
-import com.hy.frame.util.MyLog;
+import com.hy.frame.util.LogUtil;
+
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -104,7 +106,7 @@ public class HttpClient implements IHttpClient {
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
                 @Override
                 public void log(@NonNull String message) {
-                    MyLog.d(TAG, message);
+                    LogUtil.d(TAG, message);
                 }
             });
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -269,18 +271,18 @@ public class HttpClient implements IHttpClient {
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 String msg = e.getMessage();
                 if (mLoggable)
-                    MyLog.e(TAG, "onFailure url=" + call.request().url() + ",msg=" + msg);
+                    LogUtil.e(TAG, "onFailure url=" + call.request().url() + ",msg=" + msg);
                 removeQueue(call);
                 if (isDestroy) return;
                 IObserver callback = (IObserver) call.request().tag();
                 if (callback == null) return;
-                callback.onError(-1, msg);
+                callback.onError(-2, msg);
             }
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
                 if (mLoggable)
-                    MyLog.d(TAG, "onResponse url=" + call.request().url());
+                    LogUtil.d(TAG, "onResponse url=" + call.request().url());
                 removeQueue(call);
                 if (isDestroy) return;
                 IObserver callback = (IObserver) call.request().tag();
@@ -296,10 +298,10 @@ public class HttpClient implements IHttpClient {
     }
 
     @Override
-    public void destroy() {
+    public void onDestroy() {
         this.isDestroy = true;
         if (mLoggable)
-            MyLog.d(TAG, "destroy");
+            LogUtil.d(TAG, "destroy");
         if (this.queues != null) {
             for (Call item : queues) {
                 item.cancel();

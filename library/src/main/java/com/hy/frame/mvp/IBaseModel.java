@@ -2,7 +2,7 @@ package com.hy.frame.mvp;
 
 import com.hy.frame.net.IHttpClient;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * title MVP中Model需要实现的Interface

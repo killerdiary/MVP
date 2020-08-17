@@ -1,9 +1,5 @@
 package com.hy.frame.mvp;
 
-import android.support.annotation.Nullable;
-
-import com.hy.frame.common.IBaseTemplateUI;
-
 /**
  * title MVP中View需要实现的Interface
  * author heyan
@@ -11,9 +7,5 @@ import com.hy.frame.common.IBaseTemplateUI;
  * desc 无
  */
 public interface IBaseView {
-    /**
-     * 获取模板[com.hy.frame.common.IBaseTemplateUI]
-     */
-    @Nullable
-    IBaseTemplateUI getTemplateUI();
+
 }

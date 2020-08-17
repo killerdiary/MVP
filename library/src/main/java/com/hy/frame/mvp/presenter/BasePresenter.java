@@ -1,8 +1,12 @@
 package com.hy.frame.mvp.presenter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleEventObserver;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.LifecycleOwner;
 
 import com.hy.frame.mvp.IBaseModel;
 import com.hy.frame.mvp.IBasePresenter;
@@ -15,14 +19,29 @@ import com.hy.frame.mvp.IBaseView;
  * desc 无
  */
 public abstract class BasePresenter<V extends IBaseView, M extends IBaseModel> implements IBasePresenter {
-    private Context mContext;
+
     private V mView;
     private M mModel;
+    private LifecycleObserver lifeObserver;
 
-    public BasePresenter(@NonNull Context mContext, @NonNull V mView, @NonNull M mModel) {
-        this.mContext = mContext;
+    public BasePresenter(  @NonNull V mView, @NonNull M mModel) {
         this.mView = mView;
         this.mModel = mModel;
+        lifeObserver = new LifecycleEventObserver(){
+
+            /**
+             * Called when a state transition event happens.
+             *
+             * @param source The source of the event
+             * @param event  The event
+             */
+            @Override
+            public void onStateChanged(@NonNull LifecycleOwner source, @NonNull Lifecycle.Event event) {
+                if (event == Lifecycle.Event.ON_DESTROY) {
+                    onDestroy();
+                }
+            }
+        };
     }
 
     @Nullable
@@ -35,24 +54,15 @@ public abstract class BasePresenter<V extends IBaseView, M extends IBaseModel> i
         return this.mModel;
     }
 
-    @NonNull
-    @Override
-    public Context getContext() {
-        return this.mContext;
-    }
-
-    @Nullable
-    @Override
-    public String getString(int strId) {
-        return getContext().getString(strId);
+    public LifecycleObserver getLifeObserver() {
+        return lifeObserver;
     }
 
     @Override
-    public void destroy() {
-        this.mContext = null;
+    public void onDestroy() {
         this.mView = null;
         if (this.mModel != null)
-            this.mModel.destroy();
+            this.mModel.onDestroy();
         this.mModel = null;
     }
 }

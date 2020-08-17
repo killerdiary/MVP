@@ -41,10 +41,10 @@ public abstract class BaseModel implements IBaseModel {
     }
 
     @Override
-    public void destroy() {
+    public void onDestroy() {
         this.mDestroy = true;
         if (this.mClient != null) {
-            this.mClient.destroy();
+            this.mClient.onDestroy();
             this.mClient = null;
         }
     }

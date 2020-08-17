@@ -2,12 +2,12 @@ package com.hy.frame.net.observer;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.hy.frame.net.IObserver;
 import com.hy.frame.util.FormatUtil;
-import com.hy.frame.util.MyLog;
+import com.hy.frame.util.LogUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -81,15 +81,15 @@ public class FileObserver implements IObserver {
 
     @Override
     public void onSuccess(ResponseBody body) {
-        MyLog.d(TAG, "onSuccess ");
+        LogUtil.d(TAG, "onSuccess ");
         int code = 0;//0异常 1成功
         String msg = "";
         if (mListener == null) {
-            MyLog.e(TAG, "未配置listener");
+            LogUtil.e(TAG, "未配置listener");
             return;
         }
         if (mSavePath == null || mSavePath.length() == 0) {
-            MyLog.e(TAG, "未配置文件存储路径");
+            LogUtil.e(TAG, "未配置文件存储路径");
             msg = "程序配置错误";
             onError(code, msg);
             return;
@@ -144,7 +144,7 @@ public class FileObserver implements IObserver {
             dFile.setState(STATUS_SUCCESS);//下载完成
             //noinspection ResultOfMethodCallIgnored
             tempFile.renameTo(file);//重命名缓存文件
-            MyLog.d(TAG, String.format(Locale.CHINA, "onSuccess path=%s %s/%s", mSavePath, dFile.downloadSize, dFile.fileSize));
+            LogUtil.d(TAG, String.format(Locale.CHINA, "onSuccess path=%s %s/%s", mSavePath, dFile.downloadSize, dFile.fileSize));
             onSuccess(dFile, "下载完成");
             return;
         } catch (Exception e) {

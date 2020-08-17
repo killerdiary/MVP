@@ -1,9 +1,6 @@
 package com.hy.frame.mvp;
 
-import android.content.Context;
-
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * title MVP中Presenter需要实现的Interface
@@ -12,13 +9,14 @@ import android.support.annotation.Nullable;
  * desc 无
  */
 public interface IBasePresenter {
-    @NonNull
-    Context getContext();
-
+    /**
+     * 请使用GenericLifecycleObserver
+     */
     @Nullable
-    String getString(int strId);
+    androidx.lifecycle.LifecycleObserver getLifecycleObserver();
+
     /**
      * 释放资源
      */
-    void destroy();
+    void onDestroy();
 }

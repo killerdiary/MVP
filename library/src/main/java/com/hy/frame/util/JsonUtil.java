@@ -51,7 +51,7 @@ public class JsonUtil {
             }
             //return Arrays.asList(beans);
         } catch (Exception e) {
-            MyLog.e("JSON", e.toString());
+            LogUtil.e("JSON", e.toString());
         }
         return null;
     }
@@ -62,7 +62,7 @@ public class JsonUtil {
             return new Gson().fromJson(data, cls);
 
         } catch (Exception e) {
-            MyLog.e("JSON", e.toString());
+            LogUtil.e("JSON", e.toString());
         }
         return null;
     }

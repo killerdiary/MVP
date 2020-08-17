@@ -29,7 +29,7 @@ public interface IHttpClient {
     /**
      * destroy
      */
-    void destroy();
+    void onDestroy();
 
     /**
      * 通用get请求

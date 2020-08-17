@@ -1,6 +1,6 @@
 package com.hy.frame.mvp;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * title MVP中Activity需要实现的Interface
