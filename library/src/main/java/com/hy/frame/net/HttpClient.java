@@ -262,7 +262,7 @@ public class HttpClient implements IHttpClient {
      */
     private void request(OkHttpClient client, Request request) {
 //        if (this.mLoggable)
-//            MyLog.d(TAG, "request url=" + request.url());
+//            LogUtil.d(TAG, "request url=" + request.url());
         //开始请求 加入队列
         Call call = client.newCall(request);
         addQueue(call);

@@ -2,8 +2,8 @@ package com.hy.frame.net.file;
 
 import android.text.TextUtils;
 
-import com.hy.frame.util.FileUtil;
-import com.hy.frame.util.MyLog;
+
+import com.hy.frame.util.LogUtil;
 
 import java.io.File;
 
@@ -24,9 +24,9 @@ public class FileBinary implements Binary {
 
     public FileBinary(File file, String fileName, String mimeType) {
         if (file == null) {
-            MyLog.w("File == null");
+            LogUtil.w("File == null");
         } else if (!file.exists()) {
-            MyLog.w("File isn't exists");
+            LogUtil.w("File isn't exists");
         }
         this.file = file;
         this.fileName = fileName;
