@@ -54,7 +54,8 @@ public abstract class BasePresenter<V extends IBaseView, M extends IBaseModel> i
         return this.mModel;
     }
 
-    public LifecycleObserver getLifeObserver() {
+    @Nullable
+    public LifecycleObserver getLifecycleObserver() {
         return lifeObserver;
     }
 
