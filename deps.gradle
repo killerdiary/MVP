@@ -33,8 +33,8 @@ androidx.appcompat = "androidx.appcompat:appcompat:${VERS.androidx_appcompat}"
 deps.androidx = androidx
 
 def frame = [:]
-frame.iframe = "com.github.killerdiary:IFrame:${VERS.frame_iframe}"
-frame.iframe_adx = "com.github.killerdiary:IFrame_Adx:${VERS.frame_iframe_adx}"
+frame.iframe = "com.gitee.killer:IFrame:${VERS.frame_iframe}"
+frame.iframe_adx = "com.gitee.killer:IFrame_Adx:${VERS.frame_iframe_adx}"
 deps.frame = frame
 
 def okhttp = [:]

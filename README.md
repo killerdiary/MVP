@@ -1,7 +1,7 @@
 # MVP
 #### Android MVP
 
-[![](https://jitpack.io/v/killerdiary/MVP.svg)](https://jitpack.io/#killerdiary/MVP)
+[![](https://jitpack.io/v/com.gitee.killer/MVP.svg)](https://jitpack.io/#com.gitee.killer/MVP)
 
 #### 说明
 
@@ -25,7 +25,7 @@ allprojects {
 ##### Step 2. Add the dependency
 ~~~
 dependencies {
-        implementation 'com.github.killerdiary:MVP:Tag'
+        implementation 'com.gitee.killer:MVP:Tag'
 }
 ~~~
 
