@@ -28,8 +28,8 @@ import okhttp3.ResponseBody;
  */
 public class NormalObserver<T> implements IObserver {
 
-    private ICallback<T> mListener = null;
-    private ICallback<List<T>> mListListener = null;
+    protected ICallback<T> mListener = null;
+    protected ICallback<List<T>> mListListener = null;
     protected Class<T> cls = null;
     protected boolean isTemplate = true;
     protected String tCode = "code";
@@ -38,7 +38,7 @@ public class NormalObserver<T> implements IObserver {
     protected int tCodeSucces = 1;
     protected boolean mList;
     protected Handler mHandler;
-    private final static String TAG = "NormalObserver";
+    protected final static String TAG = "NormalObserver";
 
     /**
      * 数据类型
@@ -140,10 +140,7 @@ public class NormalObserver<T> implements IObserver {
                 code = tCodeSucces;
                 if (mList) {
                     //是List
-                    JsonElement element = new JsonParser().parse(data);
-                    if (element.isJsonArray()) {
-                        any = JsonUtil.getListFromJson(element, cls);
-                    }
+                    any = JsonUtil.getListFromJson(new JsonParser().parse(data), cls);
                 } else {
                     //直接转换
                     if (cls == String.class) {
@@ -159,12 +156,8 @@ public class NormalObserver<T> implements IObserver {
                     } else if (cls == Long.class || cls == long.class) {
                         any = Long.parseLong(data);
                     } else {
-                        JsonElement element = new JsonParser().parse(data);
-//                        if (element.isJsonObject()) {
-//                            any = new Gson().fromJson(element, cls);
-//                        }
                         //强制转换
-                        any = new Gson().fromJson(element, cls);
+                        any = JsonUtil.getObjectFromJson(new JsonParser().parse(data), cls);
                     }
                 }
             } else {
@@ -183,30 +176,30 @@ public class NormalObserver<T> implements IObserver {
                             JsonElement element = obj.get(tData);
                             if (mList) {
                                 //是List
-                                if (element.isJsonArray()) {
-                                    any = JsonUtil.getListFromJson(element, cls);
-                                }
+                                any = JsonUtil.getListFromJson(element, cls);
                             } else {
                                 //是Object
-                                if (element.isJsonObject()) {
-                                    any = JsonUtil.getObjectFromJson(element, cls);
-                                } else if (element.isJsonPrimitive()) {
-                                    if (cls == String.class) {
+                                if (cls == String.class) {
+                                    if (element.isJsonPrimitive())
                                         any = element.getAsString();
-                                    } else if (cls == Boolean.class || cls == boolean.class) {
+                                } else if (cls == Boolean.class || cls == boolean.class) {
+                                    if (element.isJsonPrimitive())
                                         any = element.getAsBoolean();
-                                    } else if (cls == Integer.class || cls == int.class) {
+                                } else if (cls == Integer.class || cls == int.class) {
+                                    if (element.isJsonPrimitive())
                                         any = element.getAsInt();
-                                    } else if (cls == Double.class || cls == double.class) {
+                                } else if (cls == Double.class || cls == double.class) {
+                                    if (element.isJsonPrimitive())
                                         any = element.getAsDouble();
-                                    } else if (cls == Float.class || cls == float.class) {
+                                } else if (cls == Float.class || cls == float.class) {
+                                    if (element.isJsonPrimitive())
                                         any = element.getAsFloat();
-                                    } else if (cls == Long.class || cls == long.class) {
+                                } else if (cls == Long.class || cls == long.class) {
+                                    if (element.isJsonPrimitive())
                                         any = element.getAsLong();
-                                    }
-                                } else {
+                                }else{
                                     //强制转换
-                                    any = new Gson().fromJson(element, cls);
+                                    any = JsonUtil.getObjectFromJson(element, cls);
                                 }
                             }
                         }

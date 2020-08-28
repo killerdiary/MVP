@@ -4,7 +4,6 @@ package com.hy.frame.base;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleObserver;
 
-import com.hy.frame.base.BaseTemplateUI;
 import com.hy.frame.mvp.IBasePresenter;
 import com.hy.frame.mvp.IBasePresenterView;
 import com.hy.frame.mvp.IBaseView;

@@ -1,6 +1,5 @@
 package com.hy.frame.mvp.presenter;
 
-import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Lifecycle;
@@ -24,10 +23,10 @@ public abstract class BasePresenter<V extends IBaseView, M extends IBaseModel> i
     private M mModel;
     private LifecycleObserver lifeObserver;
 
-    public BasePresenter(  @NonNull V mView, @NonNull M mModel) {
+    public BasePresenter(@Nullable V mView, @Nullable M mModel) {
         this.mView = mView;
         this.mModel = mModel;
-        lifeObserver = new LifecycleEventObserver(){
+        this.lifeObserver = new LifecycleEventObserver() {
 
             /**
              * Called when a state transition event happens.
@@ -55,6 +54,7 @@ public abstract class BasePresenter<V extends IBaseView, M extends IBaseModel> i
     }
 
     @Nullable
+    @Override
     public LifecycleObserver getLifecycleObserver() {
         return lifeObserver;
     }

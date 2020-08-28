@@ -14,8 +14,8 @@ android {
 //        applicationId APP_ID
 //        resValue "string", "appName", APP_NAME
 
-        versionCode 7
-        versionName "2.0.0"
+        versionCode 8
+        versionName "2.0.1"
     }
     buildTypes {
         debug {
