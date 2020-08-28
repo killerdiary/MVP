@@ -10,7 +10,7 @@ VERS.plugin_github = "2.1"
 
 VERS.androidx_appcompat = "1.2.0"
 
-VERS.frame_iframe = "3.0.0"
+VERS.frame_iframe = "3.0.1"
 VERS.frame_iframe_adx = "2.0.0"
 
 //版本 > 3.12.0 works on Android 5.0+ (API level 21+) and on Java 8+. 并且 使用Kotlin
